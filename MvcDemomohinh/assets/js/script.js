@@ -25,9 +25,31 @@ function processFile() {
             index++
 
         }
+        fetch('http://localhost/MvcDemomohinh/MvcDemomohinh/?role=admin&mod=upload_file', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(info_master)
+        })
+            .then((res) => {
+                return res.json()
+            }
+            )
+            .then(responseData => {
 
-        console.log(info_master);
-        return info_master;
+                if (responseData.status === 'success') {
+
+                    alert(responseData.message);
+                } else {
+                    // Phản hồi lỗi
+                    alert('Error: ' + responseData.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
         // console.log(workbook.Sheets["Campus TVB"]['G1373'].w);
         // Object.keys(workbook.Sheets["Campus TVB"]).forEach((key) => {
         //     if (!key.includes('!') && workbook.Sheets["Campus TVB"][key].w) {
@@ -36,5 +58,9 @@ function processFile() {
         //     }
 
         // });
+
     });
+
+    event.preventDefault();
+
 }

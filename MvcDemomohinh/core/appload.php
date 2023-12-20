@@ -16,7 +16,6 @@ require COREPATH . DIRECTORY_SEPARATOR . 'base.php';
 
 // db_connect_pdo($db);
 // connect database pdo
-global $config;
 // Kết nối db
 try {
     $dsn = 'mysql:dbname=' . $db['database'] . ';host=' . $db['hostname'];

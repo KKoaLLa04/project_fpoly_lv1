@@ -23,7 +23,6 @@ function query($sql, $data = [], $statementStatus = false)
     if ($statementStatus && $query) {
         return $statement;
     }
-
     return $query;
 }
 
