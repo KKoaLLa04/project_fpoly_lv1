@@ -28,12 +28,15 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label>Tên môn học</label>
-                        <input type="text" name="name" class="form-control" placeholder="Nhập vào tên môn học" value="<?= !empty($data['subject']['name']) ? $data['subject']['name'] : false ?>" />
-                        <span class="form-text text-muted">We'll never share your email with anyone else.</span>
+                        <input type="text" name="name" class="form-control"  value="<?= !empty($data['subject']['name']) ? $data['subject']['name'] : false ?>" />
+                    </div>
+                    <div class="form-group">
+                        <label>Mã môn học</label>
+                        <input type="text" name="mon_code" class="form-control" value="<?= !empty($data['subject']['mon_code']) ? $data['subject']['mon_code'] : false ?>" />
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary mr-2">Tạo mới</button>
+                    <button type="update" class="btn btn-primary mr-2">Cập nhật</button>
                     <button type="reset" class="btn btn-secondary">Làm lại</button>
                     <a href="?role=admin&mod=subject" class="btn btn-default">Quay về</a>
                 </div>
