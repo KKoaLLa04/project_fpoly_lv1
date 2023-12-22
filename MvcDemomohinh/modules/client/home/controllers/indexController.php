@@ -1,4 +1,5 @@
 <?php 
+session_start();
 
 function construct() {
     load_model('index');
@@ -7,3 +8,6 @@ function construct() {
 function indexAction() {
     load_view('index');
 }
+
+
+?>
