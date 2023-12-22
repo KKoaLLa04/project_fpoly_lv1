@@ -68,6 +68,20 @@ function delete($table, $condition = '')
     return query($sql);
 }
 
+function deleteItemInArr($table, $condition = []){
+    if (!empty($condition)) {
+        foreach($condition as $key=> $item){
+            $sql = "DELETE FROM `$table` WHERE $key = $item";
+            query($sql);
+        }
+        
+    } else {
+        $sql = "DELETE FROM `$table`";
+        return query($sql);
+    }
+    
+}
+
 //Lấy dữ liệu từ câu lệnh SQL - Lấy tất cả
 function getRaw($sql)
 {
