@@ -61,6 +61,7 @@ function processFile() {
                 phong_thi: Object.prototype.hasOwnProperty.call(workbook.Sheets["Campus TVB"], 'E' + index) ? workbook.Sheets["Campus TVB"]['E' + index].w : '',
                 ten_mon: Object.prototype.hasOwnProperty.call(workbook.Sheets["Campus TVB"], 'G' + index) ? workbook.Sheets["Campus TVB"]['G' + index].w : '',
                 ma_mon: Object.prototype.hasOwnProperty.call(workbook.Sheets["Campus TVB"], 'H' + index) ? workbook.Sheets["Campus TVB"]['H' + index].w : '',
+                lop: Object.prototype.hasOwnProperty.call(workbook.Sheets["Campus TVB"], 'L' + index) ? workbook.Sheets["Campus TVB"]['L' + index].w : '',
                 gt_1: Object.prototype.hasOwnProperty.call(workbook.Sheets["Campus TVB"], 'O' + index) ? workbook.Sheets["Campus TVB"]['O' + index].w : '',
                 gt_2: Object.prototype.hasOwnProperty.call(workbook.Sheets["Campus TVB"], 'P' + index) ? workbook.Sheets["Campus TVB"]['P' + index].w : '',
             }

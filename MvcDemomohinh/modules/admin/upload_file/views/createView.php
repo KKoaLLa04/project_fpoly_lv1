@@ -36,7 +36,7 @@
                 <div class="card-footer">
                     <button onclick="processFile(event)" class="btn btn-primary mr-2">Tạo mới</button>
                     <button type="reset" class="btn btn-secondary">Làm lại</button>
-                    <a href="?role=admin&mod=examination" class="btn btn-default">Quay về</a>
+                    <a href="?role=admin&mod=upload_file" class="btn btn-default">Quay về</a>
                 </div>
             </form>
             <!--end::Form-->
