@@ -13,3 +13,9 @@ function get_subject_detail($id)
     $data = firstRaw($sql);
     return $data;
 }
+
+function check_subject_exits($subject_code){
+    $sql = "SELECT * FROM subjects WHERE mon_code='$subject_code'";
+    $data = getRows($sql);
+    return $data;
+}

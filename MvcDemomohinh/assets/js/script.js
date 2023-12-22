@@ -1,4 +1,52 @@
 const fileElement = document.getElementById('file');
+function procarFile(){
+    const file = fileElement.files[0];
+    file.arrayBuffer().then((file_array_buffer) => {
+        const workbook = XLSX.read(file_array_buffer);
+        var index = 4;
+        const info_master = [];
+        while(true){
+            const info = {
+                ten_mon: Object.prototype.hasOwnProperty.call(workbook.Sheets["Campus TVB"], 'G' + index) ? workbook.Sheets["Campus TVB"]['G' + index].w : '',
+                ma_mon: Object.prototype.hasOwnProperty.call(workbook.Sheets["Campus TVB"], 'H' + index) ? workbook.Sheets["Campus TVB"]['H' + index].w : '',
+            } 
+            if (info.ma_mon === '' || info.ma_mon.length === 0) {
+                break;
+            }
+            info_master.push(info);
+
+            index++
+
+        }
+        fetch('http://localhost/MvcDemomohinh/MvcDemomohinh/?role=admin&mod=subject&action=create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(info_master)
+        })
+            .then((res) => {
+                return res.json()
+            }
+            )
+            .then(responseData => {
+
+                if (responseData.status === 'success') {
+
+                    alert(responseData.message);
+                } else {
+                    // Phản hồi lỗi
+                    alert('Error: ' + responseData.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+        event.preventDefault();
+    
+}
 
 function processFile() {
     const file = fileElement.files[0];

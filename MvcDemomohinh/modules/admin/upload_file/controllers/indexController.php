@@ -21,13 +21,11 @@ function indexPostAction()
         // Kiểm tra xem dữ liệu đã nhận được chưa
         if (!empty($listData)) {
             // Xử lý dữ liệu (ví dụ: lưu vào cơ sở dữ liệu)
-            // echo "<pre>";
-            // print_r($listData);
-            // echo "</pre>";
+            $count = 0;
             foreach ($listData as $item) {
                 $dataInsert = [
                     'creator_id' => 1,
-                    'subject_id' => 8,
+                    'subject_id' => 13,
                     'spring_block_id' => 7,
                     'start_date' => $item['ngay_thi'],
                     'order_ex' => $item['ca_thi'],
@@ -36,6 +34,10 @@ function indexPostAction()
                     'created_at' => date('Y-m-d H:i:s')
                 ];
                 insert('examinations', $dataInsert);
+                $count++;
+                if($count > 100){
+                    break;
+                }
             }
 
             // Phản hồi về frontend
