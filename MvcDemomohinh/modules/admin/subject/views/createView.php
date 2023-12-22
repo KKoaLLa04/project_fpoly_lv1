@@ -27,15 +27,25 @@
             <form method="POST" action="">
                 <div class="card-body">
                     <div class="form-group">
+                        <label>Mã môn học</label>
+                        <input type="text" name="mon_code" class="form-control" placeholder="Nhập mã tên môn học" />
+                        <!-- <span class="form-text text-muted">We'll never share your email with anyone else.</span> -->
+                    </div>
+                    <div class="form-group">
                         <label>Tên môn học</label>
                         <input type="text" name="name" class="form-control" placeholder="Nhập vào tên môn học" />
                         <!-- <span class="form-text text-muted">We'll never share your email with anyone else.</span> -->
                     </div>
+                    <div class="form-group">
+                        <label>Tên môn học</label>
+                        <input type="file" name="name" class="form-control" id="file" placeholder="Nhập vào tên môn học" />
+                        <!-- <span class="form-text text-muted">We'll never share your email with anyone else.</span> -->
+                    </div>
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary mr-2">Tạo mới</button>
+                    <button type="submit" onclick="procarFile(event)" class="btn btn-primary mr-2">Tạo mới</button>
                     <button type="reset" class="btn btn-secondary">Làm lại</button>
-                    <a href="/?role=admin&mod=category" class="btn btn-default">Quay về</a>
+                    <a href="?role=admin&mod=subject" class="btn btn-default">Quay về</a>
                 </div>
             </form>
             <!--end::Form-->
@@ -45,4 +55,6 @@
     <!--end::Container-->
 </div>
 <!--end::Entry-->
+<script src="assets/exel/script.js"></script>
+<script src="assets/exel/xlsx/xlsx.full.min.js"></script>
 <?php get_footer() ?>
