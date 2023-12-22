@@ -174,4 +174,45 @@ function get_notification() {
     unset($_SESSION["notification"]);
     return $notification;
 }
+
+function get_headerLogin($name = '', $title = '') {
+    global $data;
+    if (empty($name)) {
+        $name = 'header';
+    } else {
+        $name = "header-{$name}";
+    }
+    $path = LAYOUTPATH . DIRECTORY_SEPARATOR . $name . '_' .'login.php';
+    if (file_exists($path)) {
+        if (is_array($data)) {
+            foreach ($data as $key => $a) {
+                $$key = $a;
+            }
+        }
+        require $path;
+    } else {
+        echo "Không tìm thấy {$path}";
+    }
+}
+
+function get_footerLogin($name = '') {
+    global $data;
+    if (empty($name)) {
+        $name = 'footer';
+    } else {
+        $name = "footer-{$name}";
+    }
+    $path = LAYOUTPATH . DIRECTORY_SEPARATOR . $name . '_' . 'login.php';
+    if (file_exists($path)) {
+        if (is_array($data)) {
+            foreach ($data as $key => $a) {
+                $$key = $a;
+            }
+        }
+        require $path;
+    } else {
+        echo "Không tìm thấy {$path}";
+    }
+}
+
 ?>
