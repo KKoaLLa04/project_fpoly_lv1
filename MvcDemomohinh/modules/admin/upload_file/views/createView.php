@@ -1,4 +1,4 @@
-<?php get_header('', 'Cập nhật môn học') ?>
+<?php get_header('', 'Tạo mới danh sách thi') ?>
 
 <!--begin::Subheader-->
 <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
@@ -6,7 +6,7 @@
         <!--begin::Info-->
         <div class="d-flex align-items-center flex-wrap mr-2">
             <!--begin::Page Title-->
-            <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Cập nhật môn học</h5>
+            <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Tạo mới danh sách thi</h5>
             <!--end::Page Title-->
         </div>
         <!--end::Info-->
@@ -21,24 +21,22 @@
         <!--begin::Card-->
         <div class="card card-custom gutter-b example example-compact">
             <div class="card-header">
-                <h3 class="card-title">Form thông tin môn học</h3>
+                <h3 class="card-title">Thêm file danh sách thi</h3>
             </div>
             <!--begin::Form-->
             <form method="POST" action="">
                 <div class="card-body">
                     <div class="form-group">
-                        <label>Tên môn học</label>
-                        <input type="text" name="name" class="form-control"  value="<?= !empty($data['subject']['name']) ? $data['subject']['name'] : false ?>" />
+                        <label>File danh sách thi</label>
+                        <input type="file" id="file" name="file" class="form-control" required />
+                        <!-- <span class="form-text text-muted">We'll never share your email with anyone else.</span> -->
                     </div>
-                    <div class="form-group">
-                        <label>Mã môn học</label>
-                        <input type="text" name="mon_code" class="form-control" value="<?= !empty($data['subject']['mon_code']) ? $data['subject']['mon_code'] : false ?>" />
-                    </div>
+
                 </div>
                 <div class="card-footer">
-                    <button type="update" class="btn btn-primary mr-2">Cập nhật</button>
+                    <button onclick="processFile(event)" class="btn btn-primary mr-2">Tạo mới</button>
                     <button type="reset" class="btn btn-secondary">Làm lại</button>
-                    <a href="?role=admin&mod=subject" class="btn btn-default">Quay về</a>
+                    <a href="?role=admin&mod=upload_file" class="btn btn-default">Quay về</a>
                 </div>
             </form>
             <!--end::Form-->
@@ -48,4 +46,6 @@
     <!--end::Container-->
 </div>
 <!--end::Entry-->
+<script src="assets/exel/script.js"></script>
+<script src="assets/exel/xlsx/xlsx.full.min.js"></script>
 <?php get_footer() ?>

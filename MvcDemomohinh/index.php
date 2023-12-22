@@ -12,8 +12,6 @@ ob_start();
  */
 $app_path = dirname(__FILE__);
 define('APPPATH', $app_path);
-
-
 /*
  * --------------------------------------------------------------------
  * library path
@@ -22,7 +20,6 @@ define('APPPATH', $app_path);
 $lib_folder = 'libraries';
 define('LIBPATH', APPPATH . DIRECTORY_SEPARATOR . $lib_folder);
 
-
 /*
  * --------------------------------------------------------------------
  * config path
@@ -30,7 +27,6 @@ define('LIBPATH', APPPATH . DIRECTORY_SEPARATOR . $lib_folder);
  */
 $config_folder = 'config';
 define('CONFIGPATH', APPPATH . DIRECTORY_SEPARATOR . $config_folder);
-
 /*
  * --------------------------------------------------------------------
  * modules path
@@ -38,7 +34,6 @@ define('CONFIGPATH', APPPATH . DIRECTORY_SEPARATOR . $config_folder);
  */
 $modules_folder = 'modules';
 define('MODULESPATH', APPPATH . DIRECTORY_SEPARATOR . $modules_folder);
-
 /*
  * --------------------------------------------------------------------
  * layout path
@@ -46,7 +41,6 @@ define('MODULESPATH', APPPATH . DIRECTORY_SEPARATOR . $modules_folder);
  */
 $layout_folder = 'layouts';
 define('LAYOUTPATH', APPPATH . DIRECTORY_SEPARATOR . $layout_folder);
-
 /*
  * --------------------------------------------------------------------
  * core path
@@ -54,6 +48,5 @@ define('LAYOUTPATH', APPPATH . DIRECTORY_SEPARATOR . $layout_folder);
  */
 $core_folder = 'core';
 define('COREPATH', APPPATH . DIRECTORY_SEPARATOR . $core_folder);
-
 
 require COREPATH . DIRECTORY_SEPARATOR . 'appload.php';

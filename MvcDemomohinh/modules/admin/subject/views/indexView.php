@@ -68,10 +68,12 @@
                     <thead>
                         <tr>
                             <th title="Field #1" width="3%">#</th>
-                            <th title="Field #2">Tên môn học</th>
-                            <th title="Field #3">Tạo bởi</th>
-                            <th title="Field #4">Ngày tạo</th>
-                            <th title="Field #5">Hành động</th>
+                            <th title="Field #2">Mã môn học</th>
+                            <th title="Field #3">Tên môn học</th>
+                            <th title="Field #4">Tạo bởi</th>
+                            <th title="Field #5">Ngày tạo</th>
+                            <th title="Field #6">Ngày sửa</th>
+                            <th title="Field #7">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -79,9 +81,11 @@
                             foreach ($data['subject'] as $key => $subject) : ?>
                                 <tr>
                                     <td><?= $key + 1 ?></td>
+                                    <td><?= $subject['mon_code'] ?></td>
                                     <td><?= $subject['name'] ?></td>
                                     <td><?= $subject['user_name'] ?></td>
                                     <td><?= $subject['created_at'] ?></td>
+                                    <td><?= $subject['updated_at'] ?></td>
                                     <td>
                                         <span style="overflow: visible; position: relative; width: 125px;">
                                             <a href="<?= $config['baseUrl'] ?>?role=admin&mod=subject&action=update&id=<?= $subject['id'] ?>" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details"> <span class="svg-icon svg-icon-md"> <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">

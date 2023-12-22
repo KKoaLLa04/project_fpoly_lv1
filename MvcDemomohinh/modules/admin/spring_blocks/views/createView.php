@@ -1,4 +1,4 @@
-<?php get_header('', 'Cập nhật môn học') ?>
+<?php get_header('', 'Tạo kỳ thi mới') ?>
 
 <!--begin::Subheader-->
 <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
@@ -6,7 +6,7 @@
         <!--begin::Info-->
         <div class="d-flex align-items-center flex-wrap mr-2">
             <!--begin::Page Title-->
-            <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Cập nhật môn học</h5>
+            <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Tạo kỳ thi mới</h5>
             <!--end::Page Title-->
         </div>
         <!--end::Info-->
@@ -21,24 +21,21 @@
         <!--begin::Card-->
         <div class="card card-custom gutter-b example example-compact">
             <div class="card-header">
-                <h3 class="card-title">Form thông tin môn học</h3>
+                <h3 class="card-title">Form thông tin kỳ thi mới</h3>
             </div>
             <!--begin::Form-->
             <form method="POST" action="">
                 <div class="card-body">
                     <div class="form-group">
-                        <label>Tên môn học</label>
-                        <input type="text" name="name" class="form-control"  value="<?= !empty($data['subject']['name']) ? $data['subject']['name'] : false ?>" />
-                    </div>
-                    <div class="form-group">
-                        <label>Mã môn học</label>
-                        <input type="text" name="mon_code" class="form-control" value="<?= !empty($data['subject']['mon_code']) ? $data['subject']['mon_code'] : false ?>" />
+                        <label>Tên kỳ thi</label>
+                        <input type="text" name="name" class="form-control" placeholder="Nhập vào tên kỳ thi" />
+                        <!-- <span class="form-text text-muted">We'll never share your email with anyone else.</span> -->
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button type="update" class="btn btn-primary mr-2">Cập nhật</button>
+                    <button type="submit" class="btn btn-primary mr-2">Tạo mới</button>
                     <button type="reset" class="btn btn-secondary">Làm lại</button>
-                    <a href="?role=admin&mod=subject" class="btn btn-default">Quay về</a>
+                    <a href="?role=admin&mod=spring_blocks" class="btn btn-default">Quay về</a>
                 </div>
             </form>
             <!--end::Form-->
