@@ -1,6 +1,8 @@
-<?php 
-    get_headerLogin('','Login');
-    global $config;
+<?php
+get_headerLogin('', 'Login');
+global $config;
+$msg = getFlashData('msg');
+$msg_type = getFlashData('msg_type');
 ?>
 <div class="limiter">
 
@@ -14,7 +16,7 @@
                 <span class="login100-form-title">
                     Member Login
                 </span>
-
+                <?php getMsg($msg, $msg_type) ?>
                 <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                     <input class="input100" type="email" name="email" placeholder="Email">
                     <span class="focus-input100"></span>
@@ -41,7 +43,7 @@
                 </div>
 
                 <div class="text-center p-t-12">
-                    <p class=" text-danger font-italic "><?=isset($_SESSION['error']) ? ($_SESSION['error']) :false?>
+                    <p class=" text-danger font-italic "><?= isset($_SESSION['error']) ? ($_SESSION['error']) : false ?>
                     </p>
 
                 </div>
@@ -56,9 +58,9 @@
                 </div>
 
                 <div class="text-center p-t-136">
-                    <a class="txt2" href="<?= $config['baseUrl'] ?>?role=client&mod=login&action=create">
-                        Create your Account
-                        <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                    <a class="txt2" href="<?= $config['baseUrl'] ?>?role=client&mod=login">
+                        Hệ thống bắn đề thi online trực tuyến!
+                        <!-- <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i> -->
                     </a>
                 </div>
             </form>
