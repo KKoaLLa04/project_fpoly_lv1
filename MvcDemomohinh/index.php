@@ -1,10 +1,15 @@
 <?php
 ini_set('display_errors', 'on');
+session_start();
+ob_start();
 require_once './core/helpers.php';
 require_once './core/database.php';
+require_once './core/session.php';
 
-ob_start();
-
+// php mailer library
+require 'assets/plugins/custom/phpMailer/Exception.php';
+require 'assets/plugins/custom/phpMailer/PHPMailer.php';
+require 'assets/plugins/custom/phpMailer/SMTP.php';
 /*
  * --------------------------------------------------------------------
  * app path
