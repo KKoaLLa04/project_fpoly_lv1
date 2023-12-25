@@ -36,8 +36,7 @@
                             <div class="row align-items-center">
                                 <div class="col-md-4 my-2 my-md-0">
                                     <div class="input-icon">
-                                        <input type="text" class="form-control" placeholder="Search..."
-                                            id="kt_datatable_search_query" />
+                                        <input type="text" class="form-control" placeholder="Search..." id="kt_datatable_search_query" />
                                         <span>
                                             <i class="flaticon2-search-1 text-muted"></i>
                                         </span>
@@ -66,18 +65,36 @@
                     <tbody>
                         <?php if (!empty($data['exam_calender'])) :
                             foreach ($data['exam_calender'] as $key => $item) :
+                                $now = time(); //Thời gian hiện tại
+
+                                $time_to_start = $item['start_date'];
+                                $timeStr = strtotime($time_to_start);
+                                // truoc 15p 
+                                $timeStrBefore = $timeStr - 15 * 60;
+                                $timeFormatBefore = date('H:i', $timeStrBefore);
+                                // sau 15p
+                                $timeStrAfter = $timeStr + 15 * 60;
+                                $timeFormatAfter = date('H:i', $timeStrAfter);
+
                         ?>
-                        <tr>
-                            <td><?= $key + 1 ?></td>
-                            <td><?= $item['start_date'] ?></td>
-                            <td>Ca <?= $item['order_ex'] . ' - ' . $item['room_code'] ?></td>
-                            <td><?= $item['subject_name'] ?></td>
-                            <td><?= $item['class_code'] ?></td>
-                            <td><?= $item['teacher_code_1'] ?></td>
-                            <td><?= $item['teacher_code_2'] ?></td>
-                            <th>7h15:00:00 - 9h15:00:00</th>
-                            <th><a href="#" class="btn btn-primary w-100">Tải xuống</a></th>
-                        </tr>
+                                <tr>
+                                    <td><?= $key + 1 ?></td>
+                                    <td><?= $item['start_date'] ?></td>
+                                    <td>Ca <?= $item['order_ex'] . ' - ' . $item['room_code'] ?></td>
+                                    <td><?= $item['subject_name'] ?></td>
+                                    <td><?= $item['class_code'] ?></td>
+                                    <td><?= $item['teacher_code_1'] ?></td>
+                                    <td><?= $item['teacher_code_2'] ?></td>
+                                    <th><?php echo $timeFormatBefore . ':00 - ' . $timeFormatAfter . ':00'  ?>
+                                    </th>
+                                    <th>
+                                        <?php if ($now > $timeStrBefore && $now < $timeStrAfter) : ?>
+                                            <a href="?role=admin&mod=calender&file=<?= $item['subject_media_name'] ?>" class="btn btn-primary w-100">Tải xuống</a>
+                                        <?php else : ?>
+                                            <p style="color: red;">Không trong thời gian tải đề</p>
+                                        <?php endif ?>
+                                    </th>
+                                </tr>
                         <?php endforeach;
                         endif ?>
                     </tbody>

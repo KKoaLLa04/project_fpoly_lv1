@@ -10,6 +10,8 @@ require_once './core/session.php';
 require 'assets/plugins/custom/phpMailer/Exception.php';
 require 'assets/plugins/custom/phpMailer/PHPMailer.php';
 require 'assets/plugins/custom/phpMailer/SMTP.php';
+
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 /*
  * --------------------------------------------------------------------
  * app path
