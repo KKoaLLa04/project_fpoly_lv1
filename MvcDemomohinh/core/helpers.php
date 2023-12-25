@@ -250,3 +250,33 @@ function sendMail($to, $subject, $content)
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 }
+
+function download()
+{
+    if (!empty($_GET['file'])) {
+        $fileName = basename($_GET['file']);
+        $filePath = 'uploads/file/' . $fileName;
+
+        if (!empty($fileName) && file_exists($filePath)) {
+            // header("Cache-Control: public");
+            // header("Content-Description: File Transfer");
+            // header("Content-Disposition: attachment; filename=$fileName");
+            // header("Content-Type: application/zip");
+            // header("Content-Transfer-Emcoding: binary");
+
+            // Thiết lập các header cho việc truyền tải dữ liệu
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="' . basename($fileName) . '"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            // header('Content-Length: ' . filesize($fileName));
+            readfile($filePath);
+
+            exit;
+        } else {
+            echo 'File này không tồn tại!';
+        }
+    }
+}
