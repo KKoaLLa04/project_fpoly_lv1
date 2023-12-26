@@ -1,4 +1,9 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 function loadLayout($path, $data = [])
 {
     if (!empty($path)) {
@@ -207,4 +212,71 @@ function activeAction($action)
     }
 
     return false;
+}
+
+function sendMail($to, $subject, $content)
+{
+    $mail = new PHPMailer(true);
+
+    try {
+        //Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;                      //Enable verbose debug output
+        $mail->isSMTP();                                            //Send using SMTP
+        $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+        $mail->Username   = 'ndkdzvl@gmail.com';                     //SMTP username
+        $mail->Password   = 'dchuzrbjuruftzrj';                               //SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+        $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+        //Recipients
+        $mail->setFrom('ndkdzvl@gmail.com', 'Fpt Polytechnic exam tool');
+        $mail->addAddress($to);     //Add a recipient
+        //Content
+        $mail->isHTML(true);                             //Set email format to HTML
+        $mail->CharSet = 'UTF-8';
+        $mail->Subject = $subject;
+        $mail->Body    = $content;
+
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
+        return $mail->send();
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+}
+
+function download()
+{
+    if (!empty($_GET['file'])) {
+        $fileName = basename($_GET['file']);
+        $filePath = 'uploads/file/' . $fileName;
+
+        if (!empty($fileName) && file_exists($filePath)) {
+            // header("Cache-Control: public");
+            // header("Content-Description: File Transfer");
+            // header("Content-Disposition: attachment; filename=$fileName");
+            // header("Content-Type: application/zip");
+            // header("Content-Transfer-Emcoding: binary");
+
+            // Thiết lập các header cho việc truyền tải dữ liệu
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="' . basename($fileName) . '"');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            // header('Content-Length: ' . filesize($fileName));
+            readfile($filePath);
+
+            exit;
+        } else {
+            echo 'File này không tồn tại!';
+        }
+    }
 }

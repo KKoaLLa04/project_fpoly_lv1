@@ -1,6 +1,9 @@
-<?php 
-    get_headerLogin('','Login');
-    global $config;
+<?php
+get_headerLogin('', 'Login');
+global $config;
+$msg = getFlashData('msg');
+$msg_type = getFlashData('msg_type');
+$errors = getFlashData('errors');
 ?>
 <div class="limiter">
     <div class="container-login100">
@@ -9,27 +12,28 @@
 
             <form class="login100-form validate-form" action="" method="POST">
                 <span class="login100-form-title">
-                    Create Account
+                    Đặt lại mật khẩu
+                </span>
                 </span>
 
-                </span>
-
+                <?php getMsg($msg, $msg_type) ?>
                 <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                    <input class="input100" type="text" name="password" placeholder="Mật khẩu mới...">
+                    <input class="input100" type="password" name="password" placeholder="Mật khẩu mới...">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <!-- <i class="fa fa-envelope" aria-hidden="true"></i> -->
                         <i class="fa fa-solid fa-user" aria-hidden="true"></i>
                     </span>
+                    <span style="color: red;"><?= !empty($errors['password']) ? $errors['password'] : false ?></span>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <input class="input100" type="password" name="confirm_password"
-                        placeholder="Xác nhận mật khẩu mới...">
+                    <input class="input100" type="password" name="confirm_password" placeholder="Xác nhận mật khẩu mới...">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-lock" aria-hidden="true"></i>
                     </span>
+                    <span style="color: red;"><?= !empty($errors['confirm_password']) ? $errors['confirm_password'] : false ?></span>
                 </div>
 
                 <div class="container-login100-form-btn">
