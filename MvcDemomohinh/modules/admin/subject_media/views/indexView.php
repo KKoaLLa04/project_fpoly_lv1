@@ -1,4 +1,4 @@
-<?php get_header('', 'Thông tin danh sách thi') ?>
+<?php get_header('', 'Quản lý bộ đề thi') ?>
 
 <!--begin::Subheader-->
 <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
@@ -6,7 +6,7 @@
         <!--begin::Info-->
         <div class="d-flex align-items-center flex-wrap mr-2">
             <!--begin::Page Title-->
-            <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Thông tin các danh sách thi</h5>
+            <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Quản lý bộ đề thi</h5>
             <!--end::Page Title-->
         </div>
         <!--end::Info-->
@@ -22,14 +22,14 @@
         <div class="card card-custom">
             <div class="card-header flex-wrap border-0 pt-6 pb-0">
                 <div class="card-title">
-                    <h3 class="card-label">Thông tin chung
-                        <span class="d-block text-muted pt-2 font-size-sm">thông tin các danh sách thi</span>
+                    <h3 class="card-label">Danh sách đề thi
+                        <span class="d-block text-muted pt-2 font-size-sm">Danh sách các đề thi có trên hệ
+                            thống</span>
                     </h3>
                 </div>
-                <?php if($data['checkPermission']['add']): ?>
                 <div class="card-toolbar">
                     <!--begin::Button-->
-                    <a href="<?= $config['baseUrl'] ?>?role=admin&mod=upload_file&action=create"
+                    <a href="<?= $config['baseUrl'] ?>?role=admin&mod=subject_media&action=create"
                         class="btn btn-primary font-weight-bolder">
                         <span class="svg-icon svg-icon-md">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
@@ -44,10 +44,9 @@
                                 </g>
                             </svg>
                             <!--end::Svg Icon-->
-                        </span>Thêm danh sách thi mới</a>
+                        </span>Thêm đề thi mới</a>
                     <!--end::Button-->
                 </div>
-                <?php endif ?>
             </div>
             <div class="card-body">
                 <!--begin: Search Form-->
@@ -73,38 +72,29 @@
                 <table class="datatable datatable-bordered datatable-head-custom" id="kt_datatable">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Tên môn học</th>
-                            <th>Kỳ thi</th>
-                            <th>Ngày bắt đầu</th>
-                            <th>Ca thi</th>
-                            <th>Phòng thi</th>
-                            <th>Lớp</th>
-                            <?php if($data['checkPermission']['edit'] || $data['checkPermission']['delete']): ?>
-                            <th>Hành động</th>
-                            <?php endif ?>
+                            <th title="Field #1" width="3%">#</th>
+                            <th title="Field #3">Tiêu đề</th>
+                            <th title="Field #4">Tạo bởi</th>
+                            <th title="Field #6">Môn học</th>
+                            <th title="Field #6">Kỳ thi</th>
+                            <th title="Field #5">Ngày tạo</th>
+                            <th title="Field #7">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if (!empty($data['examination_lists'])) :
-                            foreach ($data['examination_lists'] as $key => $item) : ?>
+                        <?php if (!empty($data['subject_medias'])) :
+                            foreach ($data['subject_medias'] as $key => $subject) : ?>
                         <tr>
                             <td><?= $key + 1 ?></td>
-                            <td><?= $item['subject_id'] ?></td>
-                            <td><?= $item['spring_block_id'] ?></td>
-                            <td><?php  
-
-                                    $datetime = DateTime::createFromFormat('Y-m-d H:i:s', $item['start_date']);
-                                    $start_date = $datetime->format('d-m-Y ');
-                                    echo $start_date;
-                            ?></td>
-                            <td><?= $item['order_ex'] ?></td>
-                            <td><?= $item['room_code'] ?></td>
-                            <td><?= $item['class_code'] ?></td>
+                            <td><?= $subject['name'] ?></td>
+                            <td><?= $subject['user_name'] ?></td>
+                            <td><?= $subject['subject_name'] ?></td>
+                            <td><?= $subject['spring_name'] ?></td>
+                            <td><?= $subject['created_at'] ?></td>
+                            <td><?= $subject['updated_at'] ?></td>
                             <td>
                                 <span style="overflow: visible; position: relative; width: 125px;">
-                                    <?php if($data['checkPermission']['edit']): ?>
-                                    <a href="<?= $config['baseUrl'] ?>?role=admin&mod=upload_file&action=update&id=<?= $item['id'] ?>"
+                                    <a href="<?= $config['baseUrl'] ?>?role=admin&mod=subject&action=update&id=<?= $subject['id'] ?>"
                                         class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details"> <span
                                             class="svg-icon svg-icon-md"> <svg xmlns="http://www.w3.org/2000/svg"
                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
@@ -122,9 +112,8 @@
                                             </svg>
                                         </span>
                                     </a>
-                                    <?php endif; if($data['checkPermission']['delete']): ?>
-                                    <a href="<?= $config['baseUrl'] ?>?role=admin&mod=upload_file&action=delete&id=<?= $item['id'] ?>"
-                                        onclick="return confirm('Bạn chắc chắn muốn xóa ca thi này không? ')"
+                                    <a href="<?= $config['baseUrl'] ?>?role=admin&mod=subject&action=delete&id=<?= $subject['id'] ?>"
+                                        onclick="return confirm('Bạn chắc chắn muốn xoá môn học: <?= $subject['name'] ?> không? Hành động sẽ xoá môn học và những dữ liệu liên quan của môn học này')"
                                         class="btn btn-sm btn-clean btn-icon" title="Delete"> <span
                                             class="svg-icon svg-icon-md"> <svg xmlns="http://www.w3.org/2000/svg"
                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
@@ -139,7 +128,6 @@
                                                         fill="#000000" opacity="0.3"></path>
                                                 </g>
                                             </svg> </span> </a>
-                                    <?php endif ?>
                                 </span>
                             </td>
                         </tr>

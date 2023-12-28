@@ -5,7 +5,6 @@ function query($sql, $data = [], $statementStatus = false)
     global $conn;
     $query = false;
 
-
     try {
         $statement = $conn->prepare($sql);
         if (empty($data)) {
@@ -39,6 +38,18 @@ function insert($table, $dataInsert)
     return query($sql, $dataInsert);
 }
 
+function insertLastId($table, $dataInsert)
+{
+
+    $keyArr = array_keys($dataInsert);
+    $fieldStr = implode(', ', $keyArr);
+    $valueStr = ':' . implode(', :', $keyArr);
+
+    $sql = 'INSERT INTO `' . $table . '`(' . $fieldStr . ') VALUES(' . $valueStr . ')';
+
+    return query($sql, $dataInsert, false);
+}
+
 function update($table, $dataUpdate, $condition = '')
 {
 
@@ -68,18 +79,17 @@ function delete($table, $condition = '')
     return query($sql);
 }
 
-function deleteItemInArr($table, $condition = []){
+function deleteItemInArr($table, $condition = [])
+{
     if (!empty($condition)) {
-        foreach($condition as $key=> $item){
+        foreach ($condition as $key => $item) {
             $sql = "DELETE FROM `$table` WHERE $key = $item";
             query($sql);
         }
-        
     } else {
         $sql = "DELETE FROM `$table`";
         return query($sql);
     }
-    
 }
 
 //Lấy dữ liệu từ câu lệnh SQL - Lấy tất cả
@@ -112,6 +122,27 @@ function getRows($sql)
     if (!empty($statement)) {
         return $statement->rowCount();
     }
+    return false;
+}
+
+function lastInsertId($table, $dataInsert)
+{
+    global $conn;
+    if (!empty($table) && !empty($dataInsert)) {
+        $keyArr = array_keys($dataInsert);
+        $fieldStr = implode(', ', $keyArr);
+        $valueStr = ':' . implode(', :', $keyArr);
+
+        $sql = 'INSERT INTO `' . $table . '`(' . $fieldStr . ') VALUES(' . $valueStr . ')';
+
+        $statement = $conn->prepare($sql);
+        $statement->execute($dataInsert);
+
+        $last_id = $conn->lastInsertId();
+
+        return $last_id;
+    }
+
     return false;
 }
 

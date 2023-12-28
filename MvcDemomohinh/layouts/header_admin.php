@@ -1,5 +1,33 @@
 <?php get_header('base', $title) ?>
-<?php $notifications = get_notification(); ?>
+<?php $notifications = get_notification();
+if (empty(isLogin())) {
+    setFlashData('msg', 'Bạn không có quyền truy cập');
+    setFlashData('msg_type', 'danger');
+    redirect('?role=client');
+} else {
+    $loginInfo = isLogin();
+}
+
+$permissionData = permissionData();
+
+// check subject permission
+$checkSubjectView = checkPermission($permissionData, 'subject', 'Xem');
+
+// check upload_file
+$checkUploadView = checkPermission($permissionData, 'upload_file', 'Xem');
+
+// check upload_file
+$checkSpringBlockView = checkPermission($permissionData, 'spring_blocks', 'Xem');
+
+// check upload_file
+$checkSubjectMedia = checkPermission($permissionData, 'subject_media', 'Xem');
+
+// check upload_file
+$checkCalenderView = checkPermission($permissionData, 'calender', 'Xem');
+
+// check upload_file
+$checkgroupsView = checkPermission($permissionData, 'groups', 'Xem');
+?>
 <!--begin::Main-->
 <!--begin::Header Mobile-->
 <div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
@@ -116,6 +144,7 @@
                             <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
                         </li>
 
+                        <?php if (!empty($checkSubjectView)) : ?>
                         <li class="menu-item" aria-haspopup="true">
                             <a href="<?= $config['baseUrl'] ?>?role=admin&mod=subject" class="menu-link">
                                 <span class="svg-icon menu-icon">
@@ -136,7 +165,9 @@
                                 <span class="menu-text">Quản lý môn học</span>
                             </a>
                         </li>
-
+                        <?php endif ;
+                            if(!empty($checkUploadView)):
+                        ?>
                         <li class="menu-item" aria-haspopup="true">
                             <a href="<?= $config['baseUrl'] ?>?role=admin&mod=upload_file" class="menu-link">
                                 <span class="svg-icon menu-icon">
@@ -154,10 +185,10 @@
                                     </svg>
                                     <!--end::Svg Icon-->
                                 </span>
-                                <span class="menu-text">Upload file đề thi</span>
+                                <span class="menu-text">Upload file lịch thi</span>
                             </a>
                         </li>
-
+                        <?php endif; if(!empty($checkSpringBlockView)): ?>
                         <li class="menu-item" aria-haspopup="true">
                             <a href="<?= $config['baseUrl'] ?>?role=admin&mod=spring_blocks" class="menu-link">
                                 <span class="svg-icon menu-icon">
@@ -178,9 +209,9 @@
                                 <span class="menu-text">Thông tin các kỳ thi</span>
                             </a>
                         </li>
-
+                        <?php endif; if(!empty($checkSubjectMedia)): ?>
                         <li class="menu-item" aria-haspopup="true">
-                            <a href="<?= $config['baseUrl'] ?>?role=admin&mod=test" class="menu-link">
+                            <a href="<?= $config['baseUrl'] ?>?role=admin&mod=subject_media" class="menu-link">
                                 <span class="svg-icon menu-icon">
                                     <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-left-panel-2.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -196,9 +227,52 @@
                                     </svg>
                                     <!--end::Svg Icon-->
                                 </span>
-                                <span class="menu-text">Test module</span>
+                                <span class="menu-text">Thông tin bộ đề thi</span>
                             </a>
                         </li>
+                        <?php endif; if(!empty($checkCalenderView)): ?>
+                        <li class="menu-item" aria-haspopup="true">
+                            <a href="<?= $config['baseUrl'] ?>?role=admin&mod=calender" class="menu-link">
+                                <span class="svg-icon menu-icon">
+                                    <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-left-panel-2.svg-->
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24" />
+                                            <path
+                                                d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
+                                                fill="#000000" />
+                                            <rect fill="#000000" opacity="0.3" x="2" y="4" width="5" height="16"
+                                                rx="1" />
+                                        </g>
+                                    </svg>
+                                    <!--end::Svg Icon-->
+                                </span>
+                                <span class="menu-text">Lịch thi*</span>
+                            </a>
+                        </li>
+                        <?php endif; if(!empty($checkgroupsView)): ?>
+                        <li class="menu-item" aria-haspopup="true">
+                            <a href="<?= $config['baseUrl'] ?>?role=admin&mod=groups" class="menu-link">
+                                <span class="svg-icon menu-icon">
+                                    <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-left-panel-2.svg-->
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                            <rect x="0" y="0" width="24" height="24" />
+                                            <path
+                                                d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z"
+                                                fill="#000000" />
+                                            <rect fill="#000000" opacity="0.3" x="2" y="4" width="5" height="16"
+                                                rx="1" />
+                                        </g>
+                                    </svg>
+                                    <!--end::Svg Icon-->
+                                </span>
+                                <span class="menu-text">Nhóm người dùng</span>
+                            </a>
+                        </li>
+                        <?php endif; ?>
                     </ul>
                     <!--end::Menu Nav-->
                 </div>
