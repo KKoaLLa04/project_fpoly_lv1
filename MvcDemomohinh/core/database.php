@@ -5,7 +5,6 @@ function query($sql, $data = [], $statementStatus = false)
     global $conn;
     $query = false;
 
-
     try {
         $statement = $conn->prepare($sql);
         if (empty($data)) {

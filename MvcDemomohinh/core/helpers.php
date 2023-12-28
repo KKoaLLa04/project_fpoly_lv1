@@ -280,3 +280,23 @@ function download()
         }
     }
 }
+
+
+function isLogin()
+{
+    $checkLogin = false;
+    if (!empty(getSession('login_information'))) {
+        $login_information = getSession('login_information');
+        $userId = $login_information['id'];
+        $tokenQuery = firstRaw("SELECT * FROM users WHERE id=$userId");
+        if (!empty($tokenQuery)) {
+            $checkLogin = $tokenQuery;
+        } else {
+            removeSession('login_information');
+        }
+    } else {
+        removeSession('login_information');
+    }
+
+    return $checkLogin;
+}
