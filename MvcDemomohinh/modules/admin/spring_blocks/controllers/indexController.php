@@ -7,6 +7,20 @@ function construct()
 
 function indexAction()
 {
+    $permissionData = permissionData();
+
+    if (!checkPermission($permissionData, 'spring_blocks', 'Xem')) {
+        setFlashData('msg', 'Bạn không có quyền truy cập vào trang này');
+        setFlashData('msg_type', 'danger');
+        redirect('?role=admin');
+    }
+
+    $data['checkPermission'] = [
+        'add' => checkPermission($permissionData, 'spring_blocks', 'Thêm'),
+        'edit' => checkPermission($permissionData, 'spring_blocks', 'Sửa'),
+        'delete' => checkPermission($permissionData, 'spring_blocks', 'Xóa'),
+    ];
+
     $data['spring_blocks_lists'] = get_lists_spring_blocks();
     load_view('index', $data);
 }
