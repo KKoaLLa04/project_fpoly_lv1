@@ -7,6 +7,20 @@ function construct()
 
 function indexAction()
 {
+    $permissionData = permissionData();
+
+    if (!checkPermission($permissionData, 'upload_file', 'Xem')) {
+        setFlashData('msg', 'Bạn không có quyền truy cập vào trang này');
+        setFlashData('msg_type', 'danger');
+        redirect('?role=admin');
+    }
+
+    $data['checkPermission'] = [
+        'add' => checkPermission($permissionData, 'upload_file', 'Thêm'),
+        'edit' => checkPermission($permissionData, 'upload_file', 'Sửa'),
+        'delete' => checkPermission($permissionData, 'upload_file', 'Xóa'),
+    ];
+
     $data['examination_lists'] = get_lists_examination();
     load_view('index', $data);
 }
@@ -32,14 +46,41 @@ function indexPostAction()
 
                 // Tạo đối tượng DateTime từ chuỗi và định dạng ban đầu
                 $datetime = DateTime::createFromFormat('d/m/Y', $item['ngay_thi']);
+                $ngay_thi = $datetime->format('Y-m-d');
 
-                // Chuyển đổi sang định dạng mới
-                $ngay_thi = $datetime->format('Y-m-d H:i:s');
+                switch ($item['ca_thi']) {
+                    case 1:
+                        $gioFormat = '07:00:00';
+                        break;
+
+                    case 2:
+                        $gioFormat = '9:25:00';
+                        break;
+                    case 3:
+                        $gioFormat = '12:00:00';
+                        break;
+                    case 4:
+                        $gioFormat = '14:10:00';
+                        break;
+                    case 5:
+                        $gioFormat = '16:20:00';
+                        break;
+                    case 6:
+                        $gioFormat = '18:30:00';
+                        break;
+                }
+
+                $ngayGioFormat = $ngay_thi . ' ' . $gioFormat;
+
+
+                $dateTime = new DateTime($ngayGioFormat);
+
+                $ngayGioDaFormat = $dateTime->format('Y-m-d H:i:s');
                 $dataInsert = [
                     'creator_id' => 1,
                     'subject_id' => 13,
                     'spring_block_id' => 7,
-                    'start_date' => $ngay_thi,
+                    'start_date' => $ngayGioDaFormat,
                     'order_ex' => $item['ca_thi'],
                     'room_code' => $item['phong_thi'],
                     'class_code' => $item['lop'],

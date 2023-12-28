@@ -5,6 +5,7 @@ ob_start();
 require_once './core/helpers.php';
 require_once './core/database.php';
 require_once './core/session.php';
+require_once './core/permission.php';
 
 // php mailer library
 require 'assets/plugins/custom/phpMailer/Exception.php';
