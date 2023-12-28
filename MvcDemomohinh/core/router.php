@@ -22,3 +22,4 @@ $action_name = get_action() . ucfirst(strtolower($method)) . 'Action';
 // PT POST: => $action_name = indexPostAction
 
 call_function(['construct', $action_name]);
+download();

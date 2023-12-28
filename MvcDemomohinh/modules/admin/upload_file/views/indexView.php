@@ -26,6 +26,7 @@
                         <span class="d-block text-muted pt-2 font-size-sm">thông tin các danh sách thi</span>
                     </h3>
                 </div>
+                <?php if($data['checkPermission']['add']): ?>
                 <div class="card-toolbar">
                     <!--begin::Button-->
                     <a href="<?= $config['baseUrl'] ?>?role=admin&mod=upload_file&action=create"
@@ -46,6 +47,7 @@
                         </span>Thêm danh sách thi mới</a>
                     <!--end::Button-->
                 </div>
+                <?php endif ?>
             </div>
             <div class="card-body">
                 <!--begin: Search Form-->
@@ -71,14 +73,16 @@
                 <table class="datatable datatable-bordered datatable-head-custom" id="kt_datatable">
                     <thead>
                         <tr>
-                            <th >#</th>
-                            <th >Tên môn học</th>
-                            <th >Kỳ thi</th>
-                            <th >Ngày bắt đầu</th>
-                            <th >Ca thi</th>
-                            <th >Phòng thi</th>
-                            <th >Lớp</th>
-                            <th >Hành động</th>
+                            <th>#</th>
+                            <th>Tên môn học</th>
+                            <th>Kỳ thi</th>
+                            <th>Ngày bắt đầu</th>
+                            <th>Ca thi</th>
+                            <th>Phòng thi</th>
+                            <th>Lớp</th>
+                            <?php if($data['checkPermission']['edit'] || $data['checkPermission']['delete']): ?>
+                            <th>Hành động</th>
+                            <?php endif ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -99,6 +103,7 @@
                             <td><?= $item['class_code'] ?></td>
                             <td>
                                 <span style="overflow: visible; position: relative; width: 125px;">
+                                    <?php if($data['checkPermission']['edit']): ?>
                                     <a href="<?= $config['baseUrl'] ?>?role=admin&mod=upload_file&action=update&id=<?= $item['id'] ?>"
                                         class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details"> <span
                                             class="svg-icon svg-icon-md"> <svg xmlns="http://www.w3.org/2000/svg"
@@ -117,6 +122,7 @@
                                             </svg>
                                         </span>
                                     </a>
+                                    <?php endif; if($data['checkPermission']['delete']): ?>
                                     <a href="<?= $config['baseUrl'] ?>?role=admin&mod=upload_file&action=delete&id=<?= $item['id'] ?>"
                                         onclick="return confirm('Bạn chắc chắn muốn xóa ca thi này không? ')"
                                         class="btn btn-sm btn-clean btn-icon" title="Delete"> <span
@@ -133,6 +139,7 @@
                                                         fill="#000000" opacity="0.3"></path>
                                                 </g>
                                             </svg> </span> </a>
+                                    <?php endif ?>
                                 </span>
                             </td>
                         </tr>
