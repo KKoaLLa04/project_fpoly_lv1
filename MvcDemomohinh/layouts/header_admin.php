@@ -230,7 +230,7 @@ $checkgroupsView = checkPermission($permissionData, 'groups', 'Xem');
                                 <span class="menu-text">Thông tin bộ đề thi</span>
                             </a>
                         </li>
-                        <?php endif; if(!empty($checkCalenderView)): ?>
+                        <?php endif;  ?>
                         <li class="menu-item" aria-haspopup="true">
                             <a href="<?= $config['baseUrl'] ?>?role=admin&mod=calender" class="menu-link">
                                 <span class="svg-icon menu-icon">
@@ -251,7 +251,7 @@ $checkgroupsView = checkPermission($permissionData, 'groups', 'Xem');
                                 <span class="menu-text">Lịch thi*</span>
                             </a>
                         </li>
-                        <?php endif; if(!empty($checkgroupsView)): ?>
+                        <?php if(!empty($checkgroupsView)): ?>
                         <li class="menu-item" aria-haspopup="true">
                             <a href="<?= $config['baseUrl'] ?>?role=admin&mod=groups" class="menu-link">
                                 <span class="svg-icon menu-icon">

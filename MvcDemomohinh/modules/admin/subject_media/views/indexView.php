@@ -29,6 +29,8 @@
                 </div>
                 <div class="card-toolbar">
                     <!--begin::Button-->
+                    <?php if(isset($_GET['id']) && ($_GET['id']==0) ) {
+                        ?>
                     <a href="<?= $config['baseUrl'] ?>?role=admin&mod=subject_media&action=create"
                         class="btn btn-primary font-weight-bolder">
                         <span class="svg-icon svg-icon-md">
@@ -45,6 +47,30 @@
                             </svg>
                             <!--end::Svg Icon-->
                         </span>Thêm đề thi mới</a>
+                                            <!--end::Button-->
+
+                    <?php 
+                        }else if(isset($_GET['id']) &&($_GET['id']>0)){
+                            ?>
+                    <a href="<?= $config['baseUrl'] ?>?role=admin&mod=subject_media&action=append&id=<?=$_GET['id']?>"
+                        class="btn btn-primary font-weight-bolder">
+                        <span class="svg-icon svg-icon-md">
+                            <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <circle fill="#000000" cx="9" cy="15" r="6" />
+                                    <path
+                                        d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z"
+                                        fill="#000000" opacity="0.3" />
+                                </g>
+                            </svg>
+                            <!--end::Svg Icon-->
+                        </span>Thêm đề thi </a>
+                    <?php
+                        }
+                        ?>
                     <!--end::Button-->
                 </div>
             </div>
@@ -91,10 +117,10 @@
                             <td><?= $subject['subject_name'] ?></td>
                             <td><?= $subject['spring_name'] ?></td>
                             <td><?= $subject['created_at'] ?></td>
-                            <td><?= $subject['updated_at'] ?></td>
+                            
                             <td>
                                 <span style="overflow: visible; position: relative; width: 125px;">
-                                    <a href="<?= $config['baseUrl'] ?>?role=admin&mod=subject&action=update&id=<?= $subject['id'] ?>"
+                                    <a href="<?= $config['baseUrl'] ?>?role=admin&mod=subject_media&action=update&id=<?= $subject['id'] ?>"
                                         class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details"> <span
                                             class="svg-icon svg-icon-md"> <svg xmlns="http://www.w3.org/2000/svg"
                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
@@ -112,7 +138,7 @@
                                             </svg>
                                         </span>
                                     </a>
-                                    <a href="<?= $config['baseUrl'] ?>?role=admin&mod=subject&action=delete&id=<?= $subject['id'] ?>"
+                                    <a href="<?= $config['baseUrl'] ?>?role=admin&mod=subject_media&action=delete&id=<?= $subject['id'] ?>"
                                         onclick="return confirm('Bạn chắc chắn muốn xoá môn học: <?= $subject['name'] ?> không? Hành động sẽ xoá môn học và những dữ liệu liên quan của môn học này')"
                                         class="btn btn-sm btn-clean btn-icon" title="Delete"> <span
                                             class="svg-icon svg-icon-md"> <svg xmlns="http://www.w3.org/2000/svg"
