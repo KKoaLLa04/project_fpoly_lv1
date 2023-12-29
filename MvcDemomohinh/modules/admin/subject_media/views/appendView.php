@@ -33,44 +33,6 @@ $errors = getFlashData('errors');
             <form method="POST" action="" enctype="multipart/form-data">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>Môn học</label>
-                                <select name="subject_id" class="form-control">
-                                    <option value="0">Chọn môn học</option>
-                                    <?php
-                                    if (!empty($data['subject'])) :
-                                        foreach ($data['subject'] as $item) :
-                                    ?>
-                                    <option value="<?= $item['id'] ?>"><?= $item['name'] . ' - ' . $item['mon_code'] ?>
-                                    </option>
-                                    <?php
-                                        endforeach;
-                                    endif;
-
-                                    ?>
-                                </select>
-                                <span
-                                    style="color: red;"><?= !empty($errors['subject_id']) ? $errors['subject_id'] : false ?></span>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>Kỳ thi</label>
-                                <select name="spring_block_id" class="form-control">
-                                <option value="0">Chọn kỳ thi</option>
-                                    <?php if (!empty($data['spring_block'])) :
-                                        foreach ($data['spring_block'] as $item) : ?>
-                                    <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
-                                    <?php endforeach;
-                                    endif ?>
-                                </select>
-                                <span
-                                    style="color: red;"><?= !empty($errors['spring_block_id']) ? $errors['spring_block_id'] : false ?></span>
-                            </div>
-                        </div>
-
                         <div class="col-12">
                             <div class="form-group" id="add-file">
                                 <label>FIle đề thi (nén nếu là folder)</label>
@@ -87,14 +49,14 @@ $errors = getFlashData('errors');
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary mr-2">Thêm mới</button>
+                    <input type="hidden" name="subject_id" value="<?=$data['subject_id']?>">
+                    <input type="hidden" name="spring_block_id" value="<?=$data['spring_block_id']?>">
+                    <button type="submit" class="btn btn-primary mr-2" value="<?=$_GET['id']?>">Thêm mới</button>
+                    <a href="?role=admin&mod=subject_media&id=<?=$_GET['id']?>" class="btn btn-default">Thêm mới</a>
                     <button type="reset" class="btn btn-secondary">Làm lại</button>
-                    <a href="?role=admin&mod=subject_media" class="btn btn-default">Quay về</a>
+                    <a href="?role=admin&mod=subject_media&id=<?=$_GET['id']?>" class="btn btn-default">Quay về</a>
                 </div>
             </form>
             <!--end::Form-->
