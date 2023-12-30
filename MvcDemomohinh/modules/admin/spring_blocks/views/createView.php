@@ -22,7 +22,7 @@
         <div class="card card-custom gutter-b example example-compact">
             <div class="card-header">
                 <h3 class="card-title">Form thông tin kỳ thi mới</h3>
-            </div>
+            </div>~
             <!--begin::Form-->
             <form method="POST" action="">
                 <div class="card-body">
