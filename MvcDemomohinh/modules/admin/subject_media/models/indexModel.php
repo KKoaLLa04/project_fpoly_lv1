@@ -6,7 +6,17 @@ function get_subject_media_lists()
     return getRaw($sql);
 }
 
+<<<<<<< HEAD
 
+=======
+function get_subject_detail($id)
+{
+    $sql = "SELECT subject_medias.*, users.name as user_name, spring_blocks.name as spring_name, subjects.name as subject_name FROM subject_medias INNER JOIN users ON users.id=subject_medias.creator_id INNER JOIN spring_blocks ON spring_blocks.id=subject_medias.spring_block_id INNER JOIN subjects ON subjects.id=subject_medias.subject_id WHERE subject_medias.id=$id";
+    $data = firstRaw($sql);
+    return $data;
+}
+                                                                                                                                                                                                                                                           
+>>>>>>> 4fee88858f3b51bb55fc96dc36bfb8ddee37b11b
 
 function get_subject_lists()
 {
