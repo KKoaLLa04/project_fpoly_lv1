@@ -110,18 +110,16 @@ function createPostAction()
     redirect('?role=admin&mod=subject_media&action=create');
 }
 
-<<<<<<< HEAD
-function appendAction()
-{
-=======
+
 function deleteAction()
 {
     global $config;
     $id = $_GET['id'];
-    deleteItemInArr('subject_medias', ['id' =>$id]);
+    deleteItemInArr('subject_medias', ['id' => $id]);
     header("Location:{$config['baseUrl']}?role=admin&mod=subject_media");
 }
-function updateAction(){
+function updateAction()
+{
     global $config;
     $data['subject'] = get_subject_lists();
     $data['spring_block'] = get_spring_block();
@@ -132,7 +130,7 @@ function updateAction(){
         echo '<pre>';
         print_r($subject_media);
         echo '</pre>';
-        
+
         if (!empty($subject_media)) {
             $data['subject_media'] = $subject_media;
 
@@ -144,11 +142,12 @@ function updateAction(){
         redirect('?role=admin&mod=subject_media');
     }
 }
-function updatePostAction(){
+function updatePostAction()
+{
     global $config;
     $data['subject'] = get_subject_lists();
     $data['spring_block'] = get_spring_block();
-    
+
     if (isPost()) {
         $fileName = $_FILES['file_exam']['name'];
         $from = $_FILES['file_exam']['tmp_name'];
@@ -160,14 +159,14 @@ function updatePostAction(){
         $condition = "id=$id";
         $subject_id = $_POST['subject_id'];
         $spring_block_id = $_POST['spring_block_id'];
-        $name =$_POST['fileName'];
+        $name = $_POST['fileName'];
         $path_save = $to;
         $now = new DateTime();
         $timezone = new DateTimeZone('Asia/Ho_Chi_Minh');
         $now->setTimezone($timezone);
         $updated_at = $now->format('Y-m-d H:i:s');
 
-        $dataUpdate= [
+        $dataUpdate = [
             'name' => $fileName,
             'subject_id' =>  $subject_id,
             'spring_block_id' => $spring_block_id,
@@ -175,16 +174,13 @@ function updatePostAction(){
             'updated_at' => $updated_at
         ];
         update('subject_medias', $dataUpdate, $condition);
-
-    
     }
-     header("Location:{$config['baseUrl']}?role=admin&mod=subject_media");
-
+    header("Location:{$config['baseUrl']}?role=admin&mod=subject_media");
 }
 
 
-function appendAction() {
->>>>>>> 4fee88858f3b51bb55fc96dc36bfb8ddee37b11b
+function appendAction()
+{
     $id = $_GET['id'];
     $data['spring_block'] = get_spring_block();
     $data['subject_id'] = $id;
@@ -284,7 +280,3 @@ function randomAction()
     }
     redirect("?role=admin&mod=subject_media");
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 4fee88858f3b51bb55fc96dc36bfb8ddee37b11b
