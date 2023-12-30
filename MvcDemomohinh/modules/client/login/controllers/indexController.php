@@ -204,3 +204,12 @@ function isEmptyString($inputString)
     }
     return false;
 }
+
+function signoutAction(){
+    unset($_SESSION['login_information']);
+    // echo "<pre>";
+    // print_r($_SESSION);
+    // echo "</pre>";
+    // die();
+    redirect('?role=client&mod=login');
+}

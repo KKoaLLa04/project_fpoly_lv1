@@ -6,6 +6,9 @@ if (empty(isLogin())) {
     redirect('?role=client');
 } else {
     $loginInfo = isLogin();
+//     echo '<pre>';
+//     print_r($_SESSION);
+//     echo '</pre>';
 }
 
 $permissionData = permissionData();
@@ -316,17 +319,17 @@ $checkgroupsView = checkPermission($permissionData, 'groups', 'Xem');
                     <div class="topbar">
                         <!--begin::User-->
                         <div class="topbar-item">
-                            <div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2"
+                            <a href="" class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2"
                                 id="kt_quick_user_toggle">
                                 <span
                                     class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>
                                 <span
-                                    class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">Nguyễn
-                                    Văn A</span>
+                                    class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3"><?=$_SESSION['login_information']['name']?></span>
                                 <span class="symbol symbol-35 symbol-light-success">
-                                    <span class="symbol-label font-size-h5 font-weight-bold">A</span>
+                                    <span
+                                        class="symbol-label font-size-h5 font-weight-bold"><?=substr($_SESSION['login_information']['name'], 0, 1)?></span>
                                 </span>
-                            </div>
+                            </a>
                         </div>
                         <!--end::User-->
                     </div>
