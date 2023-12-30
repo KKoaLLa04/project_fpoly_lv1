@@ -52,8 +52,7 @@
                             <div class="row align-items-center">
                                 <div class="col-md-4 my-2 my-md-0">
                                     <div class="input-icon">
-                                        <input type="text" class="form-control" placeholder="Search..."
-                                            id="kt_datatable_search_query" />
+                                        <input type="text" class="form-control" placeholder="Search..." id="kt_datatable_search_query" />
                                         <span>
                                             <i class="flaticon2-search-1 text-muted"></i>
                                         </span>
@@ -84,7 +83,8 @@
                             foreach ($data['subject'] as $key => $subject) : ?>
                                 <tr>
                                     <td><?= $key + 1 ?></td>
-                                    <td><?= $subject['mon_code'] ?></td>
+                                    <td><a href="?role=admin&mod=subject_media&id=<?= $subject['id'] ?>"><?= $subject['mon_code'] ?></a>
+                                    </td>
                                     <td><?= $subject['name'] ?></td>
                                     <td><?= $subject['user_name'] ?></td>
                                     <td><?= $subject['created_at'] ?></td>

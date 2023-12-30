@@ -6,7 +6,7 @@ function get_subject_media_lists()
     return getRaw($sql);
 }
 
-    
+
 
 function get_subject_lists()
 {
@@ -65,21 +65,28 @@ function get_list_subject_medias($id)
     return $data;
 }
 
-function subject_media($id){
+function subject_media($id)
+{
     $sql = "SELECT * FROM `subject_medias` WHERE  `subject_medias`.`subject_id`=$id";
     $data = firstRaw($sql);
     return $data;
 }
 
-Function get_examination_radom($subject_id,$spring_block_id){
+function get_examination_radom($subject_id, $spring_block_id)
+{
     $sql = "SELECT * FROM `examinations` WHERE subject_id=$subject_id AND spring_block_id=$spring_block_id";
     $data = getRaw($sql);
     return $data;
-
 }
 
-function get_count_media_random($subject_id,$spring_block_id)
+function get_count_media_random($subject_id, $spring_block_id)
 {
     $sql = "SELECT * FROM subject_medias WHERE subject_id=$subject_id AND spring_block_id=$spring_block_id";
+    return getRows($sql);
+}
+
+function get_count_ex_media_random($examination_id)
+{
+    $sql = "SELECT * FROM examination_medias WHERE subject_media_id=$examination_id";
     return getRows($sql);
 }
