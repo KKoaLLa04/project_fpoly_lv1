@@ -11,7 +11,7 @@ $errors = getFlashData('errors');
         <!--begin::Info-->
         <div class="d-flex align-items-center flex-wrap mr-2">
             <!--begin::Page Title-->
-            <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Tạo đề thi mới</h5>
+            <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Sửa đề thi </h5>
             <!--end::Page Title-->
         </div>
         <!--end::Info-->
@@ -26,48 +26,62 @@ $errors = getFlashData('errors');
         <!--begin::Card-->
         <div class="card card-custom gutter-b example example-compact">
             <div class="card-header">
-                <h3 class="card-title">Form thông tin đề thi mới</h3>
+                <h3 class="card-title">Form thông tin đề thi</h3>
             </div>
             <!--begin::Form-->
             <?php getMsg($msg, $msg_type) ?>
             <form method="POST" action="" enctype="multipart/form-data">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Môn học</label>
+                                <select name="subject_id" class="form-control">
+                                    <option value="0">Chọn môn học</option>
+                                    <?php
+                                    if (!empty($data['subject'])) :
+                                        foreach ($data['subject'] as $item) : ?>
+                                           <option value="<?= $item['id'] ?>" <?=$item['id'] == $data['subject_media']['subject_id'] ? "selected" : false?>><?= $item['name'] . ' - ' . $item['mon_code'] ?>
+                                            </option>
+                                    <?php
+                                        endforeach;
+                                    endif;
+
+                                    ?>
+                                </select>
+                                <span style="color: red;"><?= !empty($errors['subject_id']) ? $errors['subject_id'] : false ?></span>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
                             <div class="form-group">
                                 <label>Kỳ thi</label>
                                 <select name="spring_block_id" class="form-control">
+                                <option value="0">Chọn kỳ thi</option>
                                     <?php if (!empty($data['spring_block'])) :
                                         foreach ($data['spring_block'] as $item) : ?>
-                                            <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
+                                            <option value="<?= $item['id'] ?>" <?=$item['id'] == $data['subject_media']['spring_block_id'] ? "selected" : false?>><?= $item['name'] ?></option>
                                     <?php endforeach;
                                     endif ?>
                                 </select>
                                 <span style="color: red;"><?= !empty($errors['spring_block_id']) ? $errors['spring_block_id'] : false ?></span>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="form-group" id="add-file">
-                                <label>FIle đề thi (nén nếu là folder)</label>
-                                <input type="file" name="file_exam[]" multiple class="form-control" id="file" />
-                                <span style="color: red;"><?= !empty($errors['file_name']) ? $errors['file_name'] : false ?></span>
-                            </div>
-                        </div>
 
-                        <!-- Thêm file -->
-                        <div class="col-2 ">
+                        <div class="col-12">
                             <div class="form-group">
-                                <i class="btn btn-primary mr-2" onclick="appendInput()">Thêm file</i>
+                                <label>FIle đề thi (nén nếu là folder)</label>
+                                <input type="file" name="file_exam" class="form-control" required />
+                                <p><?= !empty($data['subject_media']['name']) ? $data['subject_media']['name'] : false ?></p>
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="card-footer">
-                    <input type="hidden" name="subject_id" value="<?= $data['subject_id'] ?>">
-                    <button type="submit" class="btn btn-primary mr-2" value="<?= $_GET['id'] ?>">Thêm mới</button>
-                    <a href="?role=admin&mod=subject_media&id=<?= $_GET['id'] ?>" class="btn btn-default">Thêm mới</a>
+                    <button type="update" class="btn btn-primary mr-2">Cập nhật</button></button>
                     <button type="reset" class="btn btn-secondary">Làm lại</button>
-                    <a href="?role=admin&mod=subject_media&id=<?= $_GET['id'] ?>" class="btn btn-default">Quay về</a>
+                    <a href="?role=admin&mod=subject_media" class="btn btn-default">Quay về</a>
                 </div>
             </form>
             <!--end::Form-->

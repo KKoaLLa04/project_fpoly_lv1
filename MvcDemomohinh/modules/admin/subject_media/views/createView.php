@@ -59,6 +59,7 @@ $errors = getFlashData('errors');
                             <div class="form-group">
                                 <label>Kỳ thi</label>
                                 <select name="spring_block_id" class="form-control">
+                                <option value="0">Chọn kỳ thi</option>
                                     <?php if (!empty($data['spring_block'])) :
                                         foreach ($data['spring_block'] as $item) : ?>
                                     <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
@@ -73,7 +74,8 @@ $errors = getFlashData('errors');
                         <div class="col-12">
                             <div class="form-group" id="add-file">
                                 <label>FIle đề thi (nén nếu là folder)</label>
-                                <input type="file" name="file_exam[]" multiple class="form-control" id="file" />
+                                <input type="file" name="file_exam[]" multiple class="form-control" id="file"
+                                    required />
                                 <span
                                     style="color: red;"><?= !empty($errors['file_name']) ? $errors['file_name'] : false ?></span>
                             </div>
