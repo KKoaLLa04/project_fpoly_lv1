@@ -22,14 +22,16 @@ function indexAction()
     ];
 
     $data['examination_lists'] = get_lists_examination();
+    $data['spring_block'] = get_spring_block();
     load_view('index', $data);
 }
 
-function indexPostAction()
+function createPostAction()
 {
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         // Nhận dữ liệu từ yêu cầu POST
+       
         $listData = json_decode(file_get_contents("php://input"), true);
 
         $response = null;
@@ -78,8 +80,8 @@ function indexPostAction()
                 $ngayGioDaFormat = $dateTime->format('Y-m-d H:i:s');
 
                 $dataInsert = [
-                    'creator_id' => 1,
-                    'subject_id' => 13,
+                    'creator_id' => $_SESSION['login_information']['id'],
+                    'subject_id' => 163,
                     'spring_block_id' => 7,
                     'start_date' => $ngayGioDaFormat,
                     'order_ex' => $item['ca_thi'],
@@ -93,8 +95,8 @@ function indexPostAction()
 
                 // insert vao trong bang examinations_teacher (gt1)
                 $dataInsertEx1 = [
-                    'creator_id' => 1, //fix cung tam thoi
-                    'spring_block_id' => 7, // fix cung tm thoi
+                    'creator_id' =>$_SESSION['login_information']['id'], 
+                    'spring_block_id' => 7,
                     'examination_id' => $lastId,
                     'teacher_code_1' => $item['gt_1'],
                     'teacher_code_2' => $item['gt_2'],
@@ -125,7 +127,9 @@ function indexPostAction()
 
 function createAction()
 {
-    return load_view('create');
+    $data['examination_lists'] = get_lists_examination();
+    $data['spring_block'] = get_spring_block();
+    return load_view('create', $data);
 }
 
 function deleteAction()
