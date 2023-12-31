@@ -76,6 +76,7 @@ function indexPostAction()
                 $dateTime = new DateTime($ngayGioFormat);
 
                 $ngayGioDaFormat = $dateTime->format('Y-m-d H:i:s');
+
                 $dataInsert = [
                     'creator_id' => 1,
                     'subject_id' => 13,
