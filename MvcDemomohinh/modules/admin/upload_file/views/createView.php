@@ -24,8 +24,23 @@
                 <h3 class="card-title">Thêm file danh sách thi</h3>
             </div>
             <!--begin::Form-->
-            <form method="POST" action="">
+            <form method="POST" action="" enctype="multipart/form-data">
                 <div class="card-body">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Kỳ thi</label>
+                            <select name="spring_block_id" class="form-control">
+                            <option value="0">Chọn kỳ thi</option>
+                                <?php if (!empty($data['spring_block'])) :
+                                    foreach ($data['spring_block'] as $item) : ?>
+                                <option value="<?= $item['id'] ?>"><?= $item['name'] ?></option>
+                                <?php endforeach;
+                                endif ?>
+                            </select>
+                            <span
+                                style="color: red;"><?= !empty($errors['spring_block_id']) ? $errors['spring_block_id'] : false ?></span>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label>File danh sách thi</label>
                         <input type="file" id="file" name="file" class="form-control" required />
