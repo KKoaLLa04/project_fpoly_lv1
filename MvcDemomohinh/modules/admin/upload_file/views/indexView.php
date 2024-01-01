@@ -90,8 +90,8 @@
                             foreach ($data['examination_lists'] as $key => $item) : ?>
                         <tr>
                             <td><?= $key + 1 ?></td>
-                            <td><?= $item['subject_id'] ?></td>
-                            <td><?= $item['spring_block_id'] ?></td>
+                            <td><?= $item['subject_name'] ?></td>
+                            <td><?= $item['spring_name'] ?></td>
                             <td><?php  
 
                                     $datetime = DateTime::createFromFormat('Y-m-d H:i:s', $item['start_date']);

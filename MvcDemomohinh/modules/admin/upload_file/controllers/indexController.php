@@ -22,6 +22,7 @@ function indexAction()
     ];
 
     $data['examination_lists'] = get_lists_examination();
+    $data['spring_block'] = get_spring_block();
     load_view('index', $data);
 }
 
@@ -29,7 +30,10 @@ function indexPostAction()
 {
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-        // Nhận dữ liệu từ yêu cầu POST
+
+        // nếu không chọn => tự động lấy kỳ thi mới nhất
+        $springId = get_one_spring_block()['id'];
+
         $listData = json_decode(file_get_contents("php://input"), true);
 
         $response = null;
@@ -76,10 +80,13 @@ function indexPostAction()
                 $dateTime = new DateTime($ngayGioFormat);
 
                 $ngayGioDaFormat = $dateTime->format('Y-m-d H:i:s');
+
+                $subjectId = get_subject_detail($item['ma_mon'])['id'];
+
                 $dataInsert = [
-                    'creator_id' => 1,
-                    'subject_id' => 13,
-                    'spring_block_id' => 7,
+                    'creator_id' => $_SESSION['login_information']['id'],
+                    'subject_id' => $subjectId,
+                    'spring_block_id' => $springId,
                     'start_date' => $ngayGioDaFormat,
                     'order_ex' => $item['ca_thi'],
                     'room_code' => $item['phong_thi'],
@@ -92,8 +99,8 @@ function indexPostAction()
 
                 // insert vao trong bang examinations_teacher (gt1)
                 $dataInsertEx1 = [
-                    'creator_id' => 1, //fix cung tam thoi
-                    'spring_block_id' => 7, // fix cung tm thoi
+                    'creator_id' => $_SESSION['login_information']['id'],
+                    'spring_block_id' => $springId,
                     'examination_id' => $lastId,
                     'teacher_code_1' => $item['gt_1'],
                     'teacher_code_2' => $item['gt_2'],
@@ -104,7 +111,7 @@ function indexPostAction()
                 insert('examination_teachers', $dataInsertEx1);
 
                 $count++;
-                if ($count > 10) {
+                if ($count > 100) {
 
                     break;
                 }
@@ -124,7 +131,9 @@ function indexPostAction()
 
 function createAction()
 {
-    return load_view('create');
+    $data['examination_lists'] = get_lists_examination();
+    $data['spring_block'] = get_spring_block();
+    return load_view('create', $data);
 }
 
 function deleteAction()
