@@ -6,8 +6,6 @@ function construct()
 
 function indexAction()
 {
-    echo "<pre>";
-    print_r($_SESSION);
-    echo "</pre>";
+
     load_view('index');
 }
