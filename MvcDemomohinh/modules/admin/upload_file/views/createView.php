@@ -26,7 +26,7 @@
             <!--begin::Form-->
             <form method="POST" action="" enctype="multipart/form-data">
                 <div class="card-body">
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                         <div class="form-group">
                             <label>Kỳ thi</label>
                             <select name="spring_block_id" class="form-control">
@@ -40,7 +40,7 @@
                             <span
                                 style="color: red;"><?= !empty($errors['spring_block_id']) ? $errors['spring_block_id'] : false ?></span>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label>File danh sách thi</label>
                         <input type="file" id="file" name="file" class="form-control" required />

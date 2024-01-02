@@ -26,12 +26,14 @@ function indexAction()
     load_view('index', $data);
 }
 
-function createPostAction()
+function indexPostAction()
 {
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-        // Nhận dữ liệu từ yêu cầu POST
-       
+
+        // nếu không chọn => tự động lấy kỳ thi mới nhất
+        $springId = get_one_spring_block()['id'];
+
         $listData = json_decode(file_get_contents("php://input"), true);
 
         $response = null;
@@ -78,10 +80,13 @@ function createPostAction()
                 $dateTime = new DateTime($ngayGioFormat);
 
                 $ngayGioDaFormat = $dateTime->format('Y-m-d H:i:s');
+
+                $subjectId = get_subject_detail($item['ma_mon'])['id'];
+
                 $dataInsert = [
                     'creator_id' => $_SESSION['login_information']['id'],
-                    'subject_id' => 163,
-                    'spring_block_id' => 7,
+                    'subject_id' => $subjectId,
+                    'spring_block_id' => $springId,
                     'start_date' => $ngayGioDaFormat,
                     'order_ex' => $item['ca_thi'],
                     'room_code' => $item['phong_thi'],
@@ -94,8 +99,8 @@ function createPostAction()
 
                 // insert vao trong bang examinations_teacher (gt1)
                 $dataInsertEx1 = [
-                    'creator_id' =>$_SESSION['login_information']['id'], 
-                    'spring_block_id' => 7,
+                    'creator_id' => $_SESSION['login_information']['id'],
+                    'spring_block_id' => $springId,
                     'examination_id' => $lastId,
                     'teacher_code_1' => $item['gt_1'],
                     'teacher_code_2' => $item['gt_2'],
@@ -105,8 +110,33 @@ function createPostAction()
 
                 insert('examination_teachers', $dataInsertEx1);
 
+                // insert giảng viên account
+                if (check_email_exitst($item['gt_1'] . '@gmail.com') < 1) {
+                    $email = $item['gt_1'] . '@gmail.com';
+                    $dataInsert = [
+                        'email' => $email,
+                        'password' => password_hash('123456', PASSWORD_DEFAULT),
+                        'group_id' => 2,
+                        'created_at' => date('Y-m-d H:i:s'),
+                    ];
+
+                    insert('users', $dataInsert);
+                }
+
+                if (check_email_exitst($item['gt_2'] . '@gmail.com') < 1) {
+                    $email = $item['gt_2'] . '@gmail.com';
+                    $dataInsert = [
+                        'email' => $email,
+                        'password' => password_hash('123456', PASSWORD_DEFAULT),
+                        'group_id' => 2,
+                        'created_at' => date('Y-m-d H:i:s'),
+                    ];
+
+                    insert('users', $dataInsert);
+                }
+
                 $count++;
-                if ($count > 10) {
+                if ($count > 100) {
 
                     break;
                 }
@@ -135,10 +165,21 @@ function deleteAction()
 {
     global $config;
     $id = $_GET['id'];
+    $condition = "id=$id";
 
-    deleteItemInArr('examinations', [
-        'id' => $id
-    ]);
+    $data['examination_media'] = get_one_examination_media($id);
+    $data['examination_teacher'] = get_one_examination_teachers($id);
+    if(!empty($data['examination_teacher']) or !empty($data['examination_media']) ){
+        setFlashData('msg', 'Bạn không thể xóa vì đang có một dữ liệu liên kết với dữ liệu này');
+        setFlashData('msg_type', 'danger');
+        redirect('?role=admin&mod=subject');
+    }else{
+        setFlashData('msg', 'Xóa dữ liệu thành công.');
+        setFlashData('msg_type', 'success');
+        delete('examinations', $condition);
+        redirect('?role=admin&mod=subject');
+    }
+    
     header("Location:{$config['baseUrl']}?role=admin&mod=upload_file");
 }
 

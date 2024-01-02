@@ -118,7 +118,19 @@ function deleteAction()
     global $config;
     $id = $_GET['id'];
     $condition = "id=$id";
-    delete('subjects', $condition);
+    
+    $data['examinations'] = get_one_examinations($id);
+    $data['subject_medias'] = get_one_subject_medias($id);
+    if(!empty($data['subject_medias']) or !empty($data['examinations'])){
+        setFlashData('msg', 'Bạn không thể xóa vì đang có một dữ liệu liên kết với dữ liệu này');
+        setFlashData('msg_type', 'danger');
+        redirect('?role=admin&mod=subject');
+    }else{
+        setFlashData('msg', 'Xóa dữ liệu thành công.');
+        setFlashData('msg_type', 'success');
+        delete('subjects', $condition);
+        redirect('?role=admin&mod=subject');
+    }
     header("Location:{$config['baseUrl']}?role=admin&mod=subject");
 }
 
