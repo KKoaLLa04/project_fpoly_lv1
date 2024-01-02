@@ -115,8 +115,18 @@ function deleteAction()
 {
     global $config;
     $id = $_GET['id'];
-    deleteItemInArr('subject_medias', ['id' => $id]);
-    header("Location:{$config['baseUrl']}?role=admin&mod=subject_media");
+    $condition = "id=$id";
+    $data = get_one_examination_media($id);
+    if(!empty($data)){
+        setFlashData('msg', 'Bạn không thể xóa vì đang có một dữ liệu liên kết với dữ liệu này');
+        setFlashData('msg_type', 'danger');
+        redirect('?role=admin&mod=subject');
+    }else{
+        setFlashData('msg', 'Xóa dữ liệu thành công.');
+        setFlashData('msg_type', 'success');
+        delete('subject_medias', $condition);
+        redirect('?role=admin&mod=subject');
+    }
 }
 function updateAction()
 {

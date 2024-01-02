@@ -19,3 +19,13 @@ function check_subject_exits($subject_code){
     $data = getRows($sql);
     return $data;
 }
+
+function get_one_examinations($id){
+    $sql = "SELECT *  FROM examinations WHERE spring_block_id = {$id}";
+    return getRaw($sql);
+}
+
+function get_one_subject_medias($id){
+    $sql = "SELECT *  FROM subject_medias WHERE spring_block_id = {$id}";
+    return getRaw($sql);
+}

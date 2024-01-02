@@ -75,6 +75,14 @@
                 </div>
             </div>
             <div class="card-body">
+            <div class="row">
+                    <?php
+                    $msg = getFlashData('msg');
+                    $msg_type = getFlashData('msg_type');
+
+                    getMsg($msg, $msg_type);
+                    ?>
+                </div>
                 <!--begin: Search Form-->
                 <div class="mb-7">
                     <div class="row align-items-center">
