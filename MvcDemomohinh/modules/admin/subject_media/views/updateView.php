@@ -72,7 +72,6 @@ $errors = getFlashData('errors');
                             <div class="form-group">
                                 <label>FIle đề thi (nén nếu là folder)</label>
                                 <input type="file" name="file_exam" class="form-control" required />
-                                <p><?= !empty($data['subject_media']['name']) ? $data['subject_media']['name'] : false ?></p>
                             </div>
                         </div>
                     </div>
