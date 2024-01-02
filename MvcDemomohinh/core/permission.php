@@ -24,7 +24,7 @@ function getCurrentLogin($id = null)
             $id = $_SESSION['login_information']['id'];
         }
     }
-    $sql = "SELECT * FROM users INNER JOIN groups ON groups.id=users.group_id WHERE users.id = $id";
+    $sql = "SELECT * FROM users INNER JOIN `groups` ON `groups`.id=users.group_id WHERE users.id = $id";
     $data = firstRaw($sql);
     return $data;
 }
@@ -36,7 +36,7 @@ function permissionData()
 
     $group_id = $users['group_id'];
 
-    $sql = "SELECT * FROM groups WHERE id=$group_id";
+    $sql = "SELECT * FROM `groups` WHERE id=$group_id";
     $data = firstRaw($sql);
 
     $permissionJson = $data['permission'];
