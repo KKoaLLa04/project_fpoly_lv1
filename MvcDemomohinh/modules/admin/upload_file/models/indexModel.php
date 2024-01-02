@@ -20,7 +20,8 @@ function get_spring_block()
     return getRaw($sql);
 }
 
-function get_one_spring_block(){
+function get_one_spring_block()
+{
     $sql = "SELECT * FROM spring_blocks ORDER BY id DESC";
     return firstRaw($sql);
 }
@@ -29,4 +30,10 @@ function get_subject_detail($mon_code)
 {
     $sql = "SELECT * FROM subjects WHERE mon_code='$mon_code'";
     return firstRaw($sql);
+}
+
+function check_email_exitst($email)
+{
+    $sql = "SELECT * FROM users WHERE email='$email'";
+    return getRows($sql);
 }
