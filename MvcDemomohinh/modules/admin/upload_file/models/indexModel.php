@@ -14,6 +14,19 @@ function get_one_examination($id)
     $sql = "SELECT * FROM examinations WHERE id = {$id}";
     return firstRaw($sql);
 }
+
+
+function get_one_examination_media($id){
+    $sql = "SELECT *  FROM examination_medias WHERE examination_id = {$id}";
+    return getRaw($sql);
+}
+
+function get_one_examination_teachers($id){
+    $sql = "SELECT *  FROM examination_teachers WHERE examination_id = {$id}";
+    return getRaw($sql);
+}
+
+
 function get_spring_block()
 {
     $sql = "SELECT * FROM spring_blocks ORDER BY id DESC";
@@ -37,3 +50,4 @@ function check_email_exitst($email)
     $sql = "SELECT * FROM users WHERE email='$email'";
     return getRows($sql);
 }
+?>
