@@ -110,6 +110,31 @@ function indexPostAction()
 
                 insert('examination_teachers', $dataInsertEx1);
 
+                // insert giảng viên account
+                if (check_email_exitst($item['gt_1'] . '@gmail.com') < 1) {
+                    $email = $item['gt_1'] . '@gmail.com';
+                    $dataInsert = [
+                        'email' => $email,
+                        'password' => password_hash('123456', PASSWORD_DEFAULT),
+                        'group_id' => 2,
+                        'created_at' => date('Y-m-d H:i:s'),
+                    ];
+
+                    insert('users', $dataInsert);
+                }
+
+                if (check_email_exitst($item['gt_2'] . '@gmail.com') < 1) {
+                    $email = $item['gt_2'] . '@gmail.com';
+                    $dataInsert = [
+                        'email' => $email,
+                        'password' => password_hash('123456', PASSWORD_DEFAULT),
+                        'group_id' => 2,
+                        'created_at' => date('Y-m-d H:i:s'),
+                    ];
+
+                    insert('users', $dataInsert);
+                }
+
                 $count++;
                 if ($count > 100) {
 
