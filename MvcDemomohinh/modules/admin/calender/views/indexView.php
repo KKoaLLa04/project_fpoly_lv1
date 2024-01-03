@@ -29,6 +29,14 @@
 
             </div>
             <div class="card-body">
+            <div class="row">
+                    <?php
+                    $msg = getFlashData('msg');
+                    $msg_type = getFlashData('msg_type');
+
+                    getMsg($msg, $msg_type);
+                    ?>
+                </div>
                 <!--begin: Search Form-->
                 <div class="mb-7">
                     <div class="row align-items-center">
@@ -65,6 +73,7 @@
                     <tbody>
                         <?php if (!empty($data['exam_calender'])) :
                             foreach ($data['exam_calender'] as $key => $item) :
+                                // $now = '14:00:00'; //Thời gian hiện tại
                                 $now = time(); //Thời gian hiện tại
 
                                 $time_to_start = $item['start_date'];
@@ -89,7 +98,8 @@
                                     </th>
                                     <th>
                                         <?php if ($now > $timeStrBefore && $now < $timeStrAfter) : ?>
-                                            <a href="?role=admin&mod=calender&file=<?= $item['subject_media_name'] ?>" class="btn btn-primary w-100">Tải xuống</a>
+                                            <!-- <a href="?role=admin&mod=calender&file=<?= $item['subject_media_name'] ?>" class="btn btn-primary w-100">Tải xuống</a> -->
+                                            <a href="?role=admin&mod=calender&action=addHistory&examination_id=<?= $item['examination_id'] ?>&examination_media_id=<?= $item['examination_media_id'] ?>&file=<?= $item['subject_media_name'] ?>" class="btn btn-primary w-100">Tải xuống</a>
                                         <?php else : ?>
                                             <p style="color: red;">Không trong thời gian tải đề</p>
                                         <?php endif ?>

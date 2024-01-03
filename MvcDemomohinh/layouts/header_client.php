@@ -24,7 +24,7 @@
             </div>
             <div class="p-4">
                 <h1><a href="index.html" class="logo">Fpoly</a></h1>
-                <ul class="list-unstyled components mb-5">
+                <ul class="list-unstyled components mb-5">  
                     <li class="active">
                         <a href="#"><span class="fa fa-home mr-3"></span> Giảng viên</a>
                     </li>
@@ -32,7 +32,7 @@
                         <a href="#"><span class="fa fa-user mr-3"></span> Lịch thi sắp tới</a>
                     </li>
                     <li>
-                        <a href="#"><span class="fa fa-briefcase mr-3"></span> Nhật ký tải đề</a>
+                        <a href="?role=client&mod=history"><span class="fa fa-briefcase mr-3"></span> Nhật ký tải đề</a>
                     </li>
                     <li>
                         <a href="?role=client&mod=login"><span class="fa fa-sticky-note mr-3"></span> Đăng xuất</a>
