@@ -17,6 +17,6 @@
 $db = array(
     'hostname' => 'localhost',
     'username' => 'root',
-    'password' => '',
+    'password' => '31072004',
     'database' => 'fpoly_exam_tool',
 );
