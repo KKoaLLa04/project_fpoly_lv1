@@ -256,7 +256,18 @@ function download()
     if (!empty($_GET['file'])) {
         $fileName = basename($_GET['file']);
         $filePath = 'uploads/file/' . $fileName;
-
+        $user = getSession('login_information');
+        $id = $user['id'];
+        $examination_id = $_GET['examination_id'];
+        $examination_media_id = $_GET['examination_media_id'];
+        $dataInsert = [
+            'download_id' => $id,
+            'examination_id' => $examination_id,
+            'examination_media_id' => $examination_media_id,
+            'created_at' => date('Y-m-d H:i:s'),
+        ];
+    
+        insert('examination_histories', $dataInsert);
         if (!empty($fileName) && file_exists($filePath)) {
             // header("Cache-Control: public");
             // header("Content-Description: File Transfer");
