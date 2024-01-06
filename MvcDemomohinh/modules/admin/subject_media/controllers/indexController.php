@@ -1,5 +1,4 @@
 <?php
-
 function construct()
 {
     load_model('index');
@@ -30,6 +29,7 @@ function createAction()
 function createPostAction()
 {
     $errors = [];
+    global $config;
 
     if (empty($_POST['subject_id'])) {
         $errors['subject_id'] = 'Đề thi thuộc môn học nào';
@@ -47,17 +47,17 @@ function createPostAction()
         // validate thanh cong, khong co loi xay ra
 
         if (isset($_FILES['file_exam'])) {
-            $file = $_FILES['file_exam'];
+            $files = $_FILES['file_exam'];
             //$extension = ['jpg', 'jpeg', 'png', 'gif'];
 
-            $fileNameArr = $file['name'];
-            if (!empty($fileNameArr) && empty($errors)) {
-                foreach ($fileNameArr as $key => $item) {
+            if (!empty($files) && empty($errors)) {
+                foreach ($files['name'] as $key => $item) {
                     $fileName = $_FILES['file_exam']['name'][$key];
-                    $file_tmp = $file['tmp_name'][$key];
-                    $from = $fileName;
+                    // echo $fileName;
+                    $from = $files['tmp_name'][$key];
                     $to = './uploads/file/' . $fileName;
                     move_uploaded_file($from, $to);
+
 
                     $dataInsert = [
                         'creator_id' => $_SESSION['login_information']['id'],
@@ -78,7 +78,7 @@ function createPostAction()
                 $count_subject_media = get_count_media($subjectId, $springBlockId);
 
 
-
+              
                 foreach ($examinations as $key => $exam) {
                     if (check_exam_media($exam['id']) < 1) {
                         $dataInsert = [
@@ -207,6 +207,7 @@ function appendPostAction()
         // validate thanh cong, khong co loi xay ra
         // $subjectId = $_POST['subject_id'];
         // $springBlockId = $_POST['spring_block_id'];
+        global $config;
 
         if (isset($_FILES['file_exam'])) {
             $file = $_FILES['file_exam'];
@@ -216,9 +217,8 @@ function appendPostAction()
             if (!empty($fileNameArr) && empty($errors)) {
                 foreach ($fileNameArr as $key => $item) {
                     $fileName = $_FILES['file_exam']['name'][$key];
-                    $file_tmp = $file['tmp_name'][$key];
                     $from = $fileName;
-                    $to = './uploads/file/' . $fileName;
+                    $to = $config['baseUrl'].'/uploads/file/'. $fileName;
                     move_uploaded_file($from, $to);
 
                     $dataInsert = [
