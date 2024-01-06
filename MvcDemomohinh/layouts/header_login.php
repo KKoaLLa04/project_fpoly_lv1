@@ -1,3 +1,9 @@
+<?php
+
+if (isLogin()) {
+    redirect('?role=client');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
