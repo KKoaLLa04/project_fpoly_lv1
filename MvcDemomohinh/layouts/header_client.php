@@ -1,3 +1,14 @@
+<?php
+
+if (!isLogin()) {
+    redirect('?role=client&mod=login');
+} else {
+    $group_id = isLogin()['group_id'];
+    if ($group_id != 2) {
+        redirect('?role=admin');
+    }
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -32,7 +43,7 @@
                         <a href="#"><span class="fa fa-user mr-3"></span> Lịch thi sắp tới</a>
                     </li>
                     <li>
-                        <a href="#"><span class="fa fa-briefcase mr-3"></span> Nhật ký tải đề</a>
+                        <a href="?role=client&mod=history"><span class="fa fa-briefcase mr-3"></span> Nhật ký tải đề</a>
                     </li>
                     <li>
                         <a href="?role=client&mod=login"><span class="fa fa-sticky-note mr-3"></span> Đăng xuất</a>
@@ -56,9 +67,8 @@
                     <p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         Copyright &copy;<script>
-                        document.write(new Date().getFullYear());
-                        </script> All rights reserved | This template is made with <i class="icon-heart"
-                            aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
+                            document.write(new Date().getFullYear());
+                        </script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </p>
                 </div>

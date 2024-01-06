@@ -99,6 +99,12 @@ function get_count_ex_media_random($examination_id)
 }
 
 
+
+function get_one_examination_media($id)
+{
+    $sql = "SELECT *  FROM examination_medias WHERE subject_media_id = {$id}";
+    return getRaw($sql);
+}
 // Lấy thông tin những môn học có trong lịch thi
 function get_lists_subject_toExam()
 {
@@ -111,4 +117,4 @@ function check_exam_media($examination_id)
 {
     $sql = "SELECT * FROM examination_medias WHERE examination_id=$examination_id";
     return getRows($sql);
-}
+};

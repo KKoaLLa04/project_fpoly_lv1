@@ -25,7 +25,7 @@ try {
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
     ];
 
-    $conn = new PDO($dsn, $db['username'], '', $options);
+    $conn = new PDO($dsn, $db['username'], $db['password'], $options);
 
     // self::$conn = $con;
 } catch (Exception $exception) {

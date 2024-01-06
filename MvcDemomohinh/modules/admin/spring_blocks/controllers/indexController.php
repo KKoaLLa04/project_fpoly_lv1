@@ -57,3 +57,56 @@ function createPostAction()
 
     header('Location: ?role=admin&mod=spring_blocks');
 }
+
+function updateAction() {
+    $id = $_GET['id'];
+    $data['spring_bocks_update'] = get_one_spring_bocks($id);
+    load_view('update', $data);
+}
+
+function updatePostAction(){
+    global $config;
+
+    if (isPost()) {
+        $id = $_GET['id'];
+        $condition = "id=$id";
+        $name = $_POST['name'];
+
+
+        $dataUpdate= [
+            
+            'name' => $name,
+            'updated_at' => date('Y-m-d H:i:s'),
+        ];
+
+       update('spring_blocks', $dataUpdate, $condition);
+    }
+    header("Location:{$config['baseUrl']}?role=admin&mod=spring_blocks&action=update&id={$id}&mess=success");
+
+}
+
+function deleteAction()
+{
+    global $config;
+    $id = $_GET['id'];
+    $condition = "id=$id";
+
+   
+    $data['examination_teacher'] = get_one_examination_teachers($id);
+    $data['examinations'] = get_one_examinations($id);
+    $data['subject_medias'] = get_one_subject_medias($id);
+
+    if(!empty($data['examination_teacher']) or !empty($data['examinations']) or !empty($data['subject_medias'])){
+        setFlashData('msg', 'Bạn không thể xóa vì đang có một dữ liệu liên kết với dữ liệu này');
+        setFlashData('msg_type', 'danger');
+        redirect('?role=admin&mod=spring_blocks');
+    }else{
+        setFlashData('msg', 'Xóa dữ liệu thành công.');
+        setFlashData('msg_type', 'success');
+        
+        delete('spring_blocks', $condition);
+        redirect('?role=admin&mod=spring_blocks');
+    }
+    
+    header("Location:{$config['baseUrl']}?role=admin&mod=spring_blocks");
+}

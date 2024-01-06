@@ -165,10 +165,21 @@ function deleteAction()
 {
     global $config;
     $id = $_GET['id'];
+    $condition = "id=$id";
 
-    deleteItemInArr('examinations', [
-        'id' => $id
-    ]);
+    $data['examination_media'] = get_one_examination_media($id);
+    $data['examination_teacher'] = get_one_examination_teachers($id);
+    if(!empty($data['examination_teacher']) or !empty($data['examination_media']) ){
+        setFlashData('msg', 'Bạn không thể xóa vì đang có một dữ liệu liên kết với dữ liệu này');
+        setFlashData('msg_type', 'danger');
+        redirect('?role=admin&mod=subject');
+    }else{
+        setFlashData('msg', 'Xóa dữ liệu thành công.');
+        setFlashData('msg_type', 'success');
+        delete('examinations', $condition);
+        redirect('?role=admin&mod=subject');
+    }
+    
     header("Location:{$config['baseUrl']}?role=admin&mod=upload_file");
 }
 
